@@ -20,3 +20,6 @@ uvicorn
 python-multipart
 PyJWT
 scikit-learn
+psycopg2-binary
+sentence-transformers
+fastapi[standerds]
