@@ -6,8 +6,8 @@ from src.utils.constant.settings import settings
 from pwdlib import PasswordHash
 import jwt
 from datetime import datetime,timedelta
-from src.rag.chat import ask_question
-from src.rag.database import create_vector_db
+# from src.rag.chat import ask_question
+# from src.rag.database import create_vector_db
 import os
 
 
@@ -127,25 +127,25 @@ def is_authenticated(request: Request, db: Session):
 
     }
 
-def upload_pdf(file: UploadFile, user_id):
+# def upload_pdf(file: UploadFile, user_id):
 
-    os.makedirs("uploads", exist_ok=True)
+#     os.makedirs("uploads", exist_ok=True)
 
-    file_path = f"uploads/{file.filename}"
+#     file_path = f"uploads/{file.filename}"
 
-    with open(file_path, "wb") as f:
-        f.write(file.file.read())
+#     with open(file_path, "wb") as f:
+#         f.write(file.file.read())
 
-    create_vector_db(file_path, user_id)
+#     create_vector_db(file_path, user_id)
 
-    return {
-        "message": "PDF uploaded successfully"
-    }
+#     return {
+#         "message": "PDF uploaded successfully"
+#     }
 
 
 
-def chat_pdf(query, user_id):
-    return ask_question(query, user_id)
+# def chat_pdf(query, user_id):
+#     return ask_question(query, user_id)
 
 def logout_user(response: Response):
     response.delete_cookie(

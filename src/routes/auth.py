@@ -29,31 +29,31 @@ def is_auth(request:Request,db: Session = Depends(get_db)):
 def logout(response: Response):
     return auth_controllers.logout_user(response)
 
-@user_routes.post("/upload")
-def upload(
-    request: Request,
-    file: UploadFile = File(...),
-    db: Session = Depends(get_db)
-):
-    user = auth_controllers.is_authenticated(request, db)
+# @user_routes.post("/upload")
+# def upload(
+#     request: Request,
+#     file: UploadFile = File(...),
+#     db: Session = Depends(get_db)
+# ):
+#     user = auth_controllers.is_authenticated(request, db)
 
-    return auth_controllers.upload_pdf(
-        file,
-        user["id"]
-    )
+#     return auth_controllers.upload_pdf(
+#         file,
+#         user["id"]
+#     )
 
-@user_routes.get("/chat")
-def chat(
-    query: str,
-    request: Request,
-    db: Session = Depends(get_db)
-):
-    user = auth_controllers.is_authenticated(request, db)
+# @user_routes.get("/chat")
+# def chat(
+#     query: str,
+#     request: Request,
+#     db: Session = Depends(get_db)
+# ):
+#     user = auth_controllers.is_authenticated(request, db)
 
-    return auth_controllers.chat_pdf(
-        query,
-        user["id"]
-    )
+#     return auth_controllers.chat_pdf(
+#         query,
+#         user["id"]
+#     )
 
 @user_routes.get("/me")
 def get_me(request: Request, db: Session = Depends(get_db)):
