@@ -84,6 +84,7 @@ def login_user(body: LoginSchema, db: Session, response: Response):
     samesite="none",
     secure=True,
     path="/",
+    domain=None 
     
 )
 
