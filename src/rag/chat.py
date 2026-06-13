@@ -1,9 +1,6 @@
 
 from dotenv import load_dotenv
-
-from langchain_community.document_loaders import PyPDFLoader
-from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_huggingface import HuggingFaceEmbeddings
+from src.utils.constant.embedding_utils import get_embedding_model
 from langchain_community.vectorstores import Chroma
 from langchain_mistralai import ChatMistralAI
 from langchain_core.prompts import ChatPromptTemplate
@@ -13,10 +10,8 @@ load_dotenv()
 
 
 
-embedding_model = HuggingFaceEmbeddings(
-    model_name="sentence-transformers/all-MiniLM-L6-v2"
-)
 
+embedding_model = get_embedding_model()
 
 
 def ask_question(query, user_id):

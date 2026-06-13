@@ -1,17 +1,19 @@
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_huggingface import HuggingFaceEmbeddings
+from src.utils.constant.embedding_utils import get_embedding_model
 from langchain_community.vectorstores import Chroma
 from dotenv import load_dotenv
 import os
 
 load_dotenv()
 
-embedding_model = HuggingFaceEmbeddings(
-    model_name="sentence-transformers/all-MiniLM-L6-v2"
-)
+
+
+
 
 def create_vector_db(pdf_path, user_id):
+
+    embedding_model = get_embedding_model()
 
     loader = PyPDFLoader(pdf_path)
     docs = loader.load()
@@ -24,7 +26,6 @@ def create_vector_db(pdf_path, user_id):
     chunks = splitter.split_documents(docs)
 
     persist_directory = f"chromafiledbs/{user_id}"
-
     os.makedirs(persist_directory, exist_ok=True)
 
     vectorstore = Chroma.from_documents(
@@ -33,6 +34,4 @@ def create_vector_db(pdf_path, user_id):
         persist_directory=persist_directory
     )
 
-    vectorstore.persist()
-
-    
+    return vectorstore
