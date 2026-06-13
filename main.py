@@ -1,18 +1,10 @@
 from fastapi import FastAPI
-from src.database.database import Base,engine
 from src.routes.auth import user_routes
 from fastapi.middleware.cors import CORSMiddleware
 
 
-Base.metadata.create_all(engine)
-
-
-
 
 app = FastAPI()
-
-
-
 
 
 app.add_middleware(
