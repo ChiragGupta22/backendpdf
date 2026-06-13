@@ -42,18 +42,18 @@ def upload(
         user["id"]
     )
 
-# @user_routes.get("/chat")
-# def chat(
-#     query: str,
-#     request: Request,
-#     db: Session = Depends(get_db)
-# ):
-#     user = auth_controllers.is_authenticated(request, db)
+@user_routes.get("/chat")
+def chat(
+    query: str,
+    request: Request,
+    db: Session = Depends(get_db)
+):
+    user = auth_controllers.is_authenticated(request, db)
 
-#     return auth_controllers.chat_pdf(
-#         query,
-#         user["id"]
-#     )
+    return auth_controllers.chat_pdf(
+        query,
+        user["id"]
+    )
 
 @user_routes.get("/me")
 def get_me(request: Request, db: Session = Depends(get_db)):
