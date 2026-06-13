@@ -81,10 +81,10 @@ def login_user(body: LoginSchema, db: Session, response: Response):
     key="token",
     value=token,
     httponly=True,
-    samesite="lax",
-    secure=False,
+    samesite="none",
+    secure=True,
     path="/",
-    domain="localhost"
+    
 )
 
     return {"message": "Login Success"}
@@ -151,8 +151,8 @@ def logout_user(response: Response):
     response.delete_cookie(
         key="token",
         httponly=True,
-        samesite="lax",
-        secure= False,
+        samesite="none",
+        secure= True,
          path="/"
     )
 
