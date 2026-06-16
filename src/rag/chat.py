@@ -1,75 +1,75 @@
 
-# from dotenv import load_dotenv
-# from src.utils.constant.embedding_utils import get_embedding_model
-# from langchain_community.vectorstores import Chroma
-# from langchain_mistralai import ChatMistralAI
-# from langchain_core.prompts import ChatPromptTemplate
+from dotenv import load_dotenv
+from src.utils.constant.embedding_utils import get_embedding_model
+from langchain_community.vectorstores import Chroma
+from langchain_mistralai import ChatMistralAI
+from langchain_core.prompts import ChatPromptTemplate
 
-# load_dotenv()
-
-
+load_dotenv()
 
 
 
-# embedding_model = get_embedding_model()
 
 
-# def ask_question(query, user_id):
+embedding_model = get_embedding_model()
 
-#     vectorstore = Chroma(
-#         persist_directory=f"chromafiledbs/{user_id}",
-#         embedding_function=embedding_model
-#     )
 
-#     retriever = vectorstore.as_retriever(
-#         search_type="mmr",
-#         search_kwargs={
-#             "k": 4,
-#             "fetch_k": 10,
-#             "lambda_mult": 0.5
-#         }
-#     )
+def ask_question(query, user_id):
 
-#     llm = ChatMistralAI(
-#         model="mistral-small-2506"
-#     )
+    vectorstore = Chroma(
+        persist_directory=f"chromafiledbs/{user_id}",
+        embedding_function=embedding_model
+    )
 
-#     prompt = ChatPromptTemplate.from_messages(
-#         [
-#             (
-#                 "system",
-#                 """You are a helpful AI assistant.
+    retriever = vectorstore.as_retriever(
+        search_type="mmr",
+        search_kwargs={
+            "k": 4,
+            "fetch_k": 10,
+            "lambda_mult": 0.5
+        }
+    )
 
-# Use ONLY the provided context to answer the question.
+    llm = ChatMistralAI(
+        model="mistral-small-2506"
+    )
 
-# If the answer is not present in the context,
-# say: "I could not find the answer in the document."
-# """
-#             ),
-#             (
-#                 "human",
-#                 """Context:
-# {context}
+    prompt = ChatPromptTemplate.from_messages(
+        [
+            (
+                "system",
+                """You are a helpful AI assistant.
 
-# Question:
-# {question}
-# """
-#             )
-#         ]
-#     )
+Use ONLY the provided context to answer the question.
 
-#     docs = retriever.invoke(query)
+If the answer is not present in the context,
+say: "I could not find the answer in the document."
+"""
+            ),
+            (
+                "human",
+                """Context:
+{context}
 
-#     context = "\n\n".join(
-#         [doc.page_content for doc in docs]
-#     )
+Question:
+{question}
+"""
+            )
+        ]
+    )
 
-#     final_prompt = prompt.invoke({
-#         "context": context,
-#         "question": query
-#     })
+    docs = retriever.invoke(query)
 
-#     response = llm.invoke(final_prompt)
+    context = "\n\n".join(
+        [doc.page_content for doc in docs]
+    )
 
-#     return response.content
+    final_prompt = prompt.invoke({
+        "context": context,
+        "question": query
+    })
+
+    response = llm.invoke(final_prompt)
+
+    return response.content
 
