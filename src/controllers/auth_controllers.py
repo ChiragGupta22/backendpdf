@@ -6,8 +6,8 @@ from src.utils.constant.settings import settings
 from pwdlib import PasswordHash
 import jwt
 from datetime import datetime,timedelta
-from src.rag.chat import ask_question
-from src.rag.database import create_vector_db
+# from src.rag.chat import ask_question
+# from src.rag.database import create_vector_db
 import os
 
 
