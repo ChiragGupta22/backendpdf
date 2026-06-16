@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, status,Request,Response
 from sqlalchemy.orm import Session
-from fastapi import UploadFile, File
+# from fastapi import UploadFile, File
 
 from src.schema.auth_schema import UserSchema,LoginSchema
 from src.database.database import get_db
@@ -42,18 +42,18 @@ def logout(response: Response):
 #         user["id"]
 #     )
 
-@user_routes.get("/chat")
-def chat(
-    query: str,
-    request: Request,
-    db: Session = Depends(get_db)
-):
-    user = auth_controllers.is_authenticated(request, db)
+# @user_routes.get("/chat")
+# def chat(
+#     query: str,
+#     request: Request,
+#     db: Session = Depends(get_db)
+# ):
+#     user = auth_controllers.is_authenticated(request, db)
 
-    return auth_controllers.chat_pdf(
-        query,
-        user["id"]
-    )
+#     return auth_controllers.chat_pdf(
+#         query,
+#         user["id"]
+#     )
 
 @user_routes.get("/me")
 def get_me(request: Request, db: Session = Depends(get_db)):
