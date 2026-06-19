@@ -10,6 +10,9 @@ def root():
     return {
         "message": "Backend is running successfully "
     }
+@app.get("/health")
+def health():
+    return {"status": "healthy"}
 
 app.add_middleware(
     CORSMiddleware,
